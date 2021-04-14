@@ -22,7 +22,7 @@
         mode: '0755'
 
     # Symboliclink MySQL Directory
-    - name: Create a symbolic link MySQL directory ==> /data/mysql
+    - name: Create a symbolic link MySQL directory ==> /mysql
       file:
         src: /var/lib/mysql
         dest: /mysql
