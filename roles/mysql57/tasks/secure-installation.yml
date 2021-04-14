@@ -7,7 +7,7 @@
       mysql_variables:
         variable: version
         login_user: '{{ mysql_root_username }}'
-        login_password: '{{ mysql_root_password }}'
+        # login_password: '{{ mysql_root_password }}'
       register: mysql_version_out
       become: true
 
