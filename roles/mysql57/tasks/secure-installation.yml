@@ -6,8 +6,9 @@
     - name: Check mysql version
       mysql_variables:
         variable: version
+        config_file: '{{ mysql_default_config_file }}'
         login_user: '{{ mysql_root_username }}'
-        # login_password: '{{ mysql_root_password }}'
+        login_password: '{{ mysql_root_password }}'
       register: mysql_version_out
       become: true
 
