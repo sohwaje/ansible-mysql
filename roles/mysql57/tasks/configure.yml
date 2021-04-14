@@ -25,7 +25,7 @@
     - name: Create a symbolic link MySQL directory ==> /data/mysql
       file:
         src: /var/lib/mysql
-        dest: /data/mysql
+        dest: /mysql
         state: link
 
     - name: Install {{ mysql_daemon }} {{ mysql_version }}
