@@ -15,7 +15,7 @@
         state: present
         key: '{{ mysql_gpgkey }}'
         # fingerprint: '{{ mysql_fingerprint | default(omit) }}'
-        fingerprint: '{{ mysql_fingerprint }}'
+        # fingerprint: 'A4A9 4068 76FC BD3C 4567  70C8 8C71 8D3B 5072 E1F5'
       register: task_result
       retries: 5
       delay: 2
