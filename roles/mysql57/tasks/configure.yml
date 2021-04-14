@@ -14,6 +14,20 @@
       vars:
         ansible_python_interpreter: /usr/bin/python3
 
+    # Create MySQL Directory ==> /var/lib/mysql
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /var/lib/mysql
+        state: directory
+        mode: '0755'
+
+    # Symboliclink MySQL Directory
+    - name: Create a symbolic link MySQL directory ==> /data/mysql
+      file:
+        src: /var/lib/mysql
+        dest: /data/mysql
+        state: link
+
     - name: Install {{ mysql_daemon }} {{ mysql_version }}
       package:
         name: '{{ (mysql_artifacts | default(false,true)) | ternary(omit, mysql_packages) }}'
