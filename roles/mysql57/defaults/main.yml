@@ -18,9 +18,9 @@ mysql_python_packages: '{{ mysql_default_python_packages }}'
 
 # Set this to the user ansible is logging in as - should have root
 # or sudo access
-# mysql_user_home: /root
-# mysql_user_name: root
-# mysql_user_password: root
+mysql_user_home: /root
+mysql_user_name: root
+mysql_user_password: root
 
 # The default root user installed by mysql - almost always root
 # mysql_root_home: /root
