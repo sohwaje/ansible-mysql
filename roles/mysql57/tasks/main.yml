@@ -10,7 +10,16 @@
   loop_control:
     loop_var: platform_vars
 
-# Create mysql Directory
+# Create MySQL Directory ==> /var/lib/mysql
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /var/lib/mysql
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: '0755'
+
+# Symboliclink MySQL Directory
 - name: Create a symbolic link MySQL directory ==> /data/mysql
   file:
     src: /var/lib/mysql
