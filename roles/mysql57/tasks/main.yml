@@ -10,6 +10,15 @@
   loop_control:
     loop_var: platform_vars
 
+# Create mysql Directory
+- name: Create a symbolic link MySQL directory ==> /data/mysql
+  file:
+    src: /var/lib/mysql
+    dest: /data/mysql
+    owner: mysql
+    group: mysql
+    state: link
+
 # Install Mysql
 - name: Configure system
   include_tasks: '{{ platform }}'
