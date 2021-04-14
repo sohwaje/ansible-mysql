@@ -2,15 +2,15 @@
   roles:
     - role: mysql57
   vars:
-    mysql_root_password: Super_P@s$0rd
+    mysql_root_password: '!#SI0aleldj*)'
     mysql_databases:
       - name: example2_db
-        encoding: latin1
-        collation: latin1_general_ci
+        encoding: utf8mb4
+        collation: utf8mb4_unicode_ci
     mysql_users:
       - name: example2_user
         host: "%"
-        password: Sime32_U$er_p@ssw0rd
+        password: 'tlrhdaleldj!@#'
         priv: "example2_db.*:ALL"
     mysql_port: 3306
     mysql_bind_address: '0.0.0.0'
