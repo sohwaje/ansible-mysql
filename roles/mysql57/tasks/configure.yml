@@ -17,15 +17,15 @@
     # Create MySQL Directory ==> /var/lib/mysql
     - name: Create a directory if it does not exist
       ansible.builtin.file:
-        path: /var/lib/mysql
+        path: /mysql
         state: directory
         mode: '0755'
 
     # Symboliclink MySQL Directory
     - name: Create a symbolic link MySQL directory ==> /mysql
       file:
-        src: /var/lib/mysql
-        dest: /mysql
+        src: /mysql
+        dest: /var/lib/mysql
         state: link
 
     - name: Install {{ mysql_daemon }} {{ mysql_version }}
