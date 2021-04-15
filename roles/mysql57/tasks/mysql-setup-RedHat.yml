@@ -12,6 +12,13 @@
     append: yes
   become: yes
 
+- name: Create MySQL Engine directory
+  file:
+    path: /mysql
+    state: directory
+    owner: mysql
+    group: mysql
+
 - name: Download and Extract MySQL Generic binary version
   unarchive:
     src: "{{ download_url }}"
