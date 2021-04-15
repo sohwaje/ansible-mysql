@@ -1,4 +1,5 @@
 - hosts: "{{ hosts }}"
+  become: yes
   roles:
     - role: mysql57
   vars:
