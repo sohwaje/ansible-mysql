@@ -34,12 +34,11 @@
     - 'mysqllog/undo'
 
   - name: List /data
-    command: 'ls -lht /data'
+    shell: 'ls -lht /data'
     register: result
-    
   - name: show /data
     debug:
-      msg: "{{ result }}"
+      msg: "{{ result.stdout }}"
 
 - name: Download and Extract MySQL Generic binary version
   unarchive:
@@ -47,3 +46,13 @@
     dest: "/mysql"
     extra_opts: [--strip-components=1]
     remote_src: yes
+
+- name: Install MySQL
+  async: 10
+  poll: 0
+  shell:
+    './bin/mysqld'
+  args:
+    -
+    chdir: '/mysql/bin'
+  register: result
