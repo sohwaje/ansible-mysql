@@ -2,7 +2,7 @@
   group:
     name: mysql
     state: present
-    
+
 - name: ADD MySQL user
   user:
     name: mysql
@@ -21,4 +21,5 @@
   unarchive:
     src: "{{ download_url }}"
     dest: "/mysql"
+    extra_opts: [--strip-components=1]
     remote_src: yes
