@@ -26,15 +26,15 @@
     recurse: yes
     state: directory
   with_items:
-    - 'mysqldata'
-    - 'mysqllog/error'
-    - 'mysqllog/binary'
-    - 'mysqllog/slow'
-    - 'mysqllog/redo'
-    - 'mysqllog/undo'
+    - "mysqldata"
+    - "mysqllog/error"
+    - "mysqllog/binary"
+    - "mysqllog/slow"
+    - "mysqllog/redo"
+    - "mysqllog/undo"
 
   - name: List /data
-    shell: 'ls -lht /data'
+    shell: "ls -lht /data"
     register: result
   - name: show /data
     debug:
@@ -51,8 +51,8 @@
   async: 10
   poll: 0
   shell:
-    './bin/mysqld'
+    "./bin/mysqld"
   args:
     -
-    chdir: '/mysql/bin'
+    chdir: "/mysql/bin"
   register: result
