@@ -28,12 +28,12 @@
   with_items:
     - 'mysqldata'
 
-  - name: List /data
-    command: ls -lht /data
-    register: result
-  - name: show /data
-    debug:
-      msg: "{{ result }}"
+  # - name: List /data
+  #   command: ls -lht /data
+  #   register: result
+  # - name: show /data
+  #   debug:
+  #     msg: "{{ result }}"
 
 - name: Download and Extract MySQL Generic binary version
   unarchive:
