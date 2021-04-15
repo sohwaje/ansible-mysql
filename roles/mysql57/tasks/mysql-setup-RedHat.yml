@@ -1,8 +1,9 @@
-- name: Add MySQL user & group
+- name: Create group MySQL
   group:
     name: mysql
     state: present
-    
+
+- name: ADD MySQL user
   user:
     name: mysql
     shell: /bin/false
