@@ -53,6 +53,9 @@
   shell:
     "./bin/mysqld"
   argv:
-    -
+    - "--basedir=/mysql"
+    - "--datadir=/mysql_data/data"
+    - "--initialize"
+    - "--user=mysql"
     chdir: "/mysql/bin"
   register: result
