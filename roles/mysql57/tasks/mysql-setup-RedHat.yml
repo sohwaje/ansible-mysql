@@ -27,6 +27,7 @@
     state: directory
   with_items:
     - 'mysqldata'
+    - 'mysqllog/error'
 
   # - name: List /data
   #   command: ls -lht /data
