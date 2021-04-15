@@ -28,7 +28,10 @@
   with_items:
     - 'mysqldata'
     - 'mysqllog/error'
-
+    - 'mysqllog/binary'
+    - 'mysqllog/slow'
+    - 'mysqllog/redo'
+    - 'mysqllog/undo'
   # - name: List /data
   #   command: ls -lht /data
   #   register: result
