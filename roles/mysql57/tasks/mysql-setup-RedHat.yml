@@ -47,18 +47,18 @@
     extra_opts: [--strip-components=1]
     remote_src: yes
 
-- name: Install MySQL
-  async: 10
-  poll: 0
-  shell:
-    "./bin/mysqld"
-  argv:
-    - "--basedir=/mysql"
-    - "--datadir=/mysql_data/data"
-    - "--initialize"
-    - "--user=mysql"
-    chdir: "/mysql/bin"
-  register: result
-- name: Display Install process
-  debug:
-    msg: "{{ result.stdout }}"
+# - name: Install MySQL
+#   async: 10
+#   poll: 0
+#   shell:
+#     "./bin/mysqld"
+#   argv:
+#     - "--basedir=/mysql"
+#     - "--datadir=/mysql_data/data"
+#     - "--initialize"
+#     - "--user=mysql"
+#     chdir: "/mysql/bin"
+#   register: result
+# - name: Display Install process
+#   debug:
+#     msg: "{{ result.stdout }}"
