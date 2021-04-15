@@ -2,15 +2,13 @@
   group:
     name: mysql
     state: present
-  become: yes
-
+    
 - name: ADD MySQL user
   user:
     name: mysql
     shell: /bin/false
     group: mysql
     append: yes
-  become: yes
 
 - name: Create MySQL Engine directory
   file:
@@ -18,8 +16,7 @@
     state: directory
     owner: mysql
     group: mysql
-  become: yes
-  
+
 - name: Download and Extract MySQL Generic binary version
   unarchive:
     src: "{{ download_url }}"
