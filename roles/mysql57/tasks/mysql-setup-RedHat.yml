@@ -1,0 +1,5 @@
+- name: Add MySQL user & group
+  user:
+    name: mysql
+    shell: /bin/false
+    group: mysql
