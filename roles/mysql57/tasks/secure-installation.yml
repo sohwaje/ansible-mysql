@@ -6,6 +6,7 @@
     - name: Check mysql version
       mysql_variables:
         variable: version
+        config_file: '/etc/my.cnf'
         login_user: 'root'
         login_password: '!#SI0aleldj*)'
       register: mysql_version_out
