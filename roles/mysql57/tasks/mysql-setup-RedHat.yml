@@ -2,6 +2,7 @@
   group:
     name: mysql
     state: present
+  become: yes
 
 - name: ADD MySQL user
   user:
@@ -9,3 +10,4 @@
     shell: /bin/false
     group: mysql
     append: yes
+  become: yes
