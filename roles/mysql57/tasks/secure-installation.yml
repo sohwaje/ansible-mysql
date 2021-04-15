@@ -4,13 +4,10 @@
 - name: Make new mysql admin user
   block:
     - name: Check mysql version
-      mysql_user:
-        name: '{{ mysql_root_username }}'
-        # variable: version
-        config_file: '{{ mysql_default_config_file }}'
-        login_user: '{{ mysql_root_username }}'
-        login_password: '{{ mysql_root_password }}'
-        check_implicit_admin: yes
+      mysql_variables:
+        variable: version
+        login_user: 'root'
+        login_password: '!#SI0aleldj*)'
       register: mysql_version_out
       become: true
 
