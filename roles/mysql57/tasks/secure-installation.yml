@@ -11,10 +11,10 @@
 #         login_password:
 #       register: mysql_version_out
 #       become: true
-
-    - name: Out mysql_version
-      debug:
-        var: mysql_version_out
+    # 
+    # - name: Out mysql_version
+    #   debug:
+    #     var: mysql_version_out
 
   rescue:
     - name: Clear InnoDB logs and restart MySQL in skip-grant-tables mode
