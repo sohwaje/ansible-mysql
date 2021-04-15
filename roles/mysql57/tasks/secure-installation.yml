@@ -6,7 +6,7 @@
     - name: Check mysql version
       mysql_variables:
         variable: version
-        # config_file: '/etc/my.cnf'
+        config_file: '/etc/my.cnf'
         login_user: 'root'
         login_password: '{{ mysql_root_password }}'
         login_unix_socket: '{{ mysql_default_socket }}'
