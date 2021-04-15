@@ -15,5 +15,5 @@
 - name: Download and Extract MySQL Generic binary version
   unarchive:
     src: "{{ download_url }}"
-    dest: "/tmp"
+    dest: "/mysql"
     remote_src: yes
