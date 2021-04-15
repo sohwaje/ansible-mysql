@@ -7,16 +7,12 @@
       mysql_variables:
         variable: version
         host: '{{ item }}'
-        config_file: '{{ mysql_default_config_file }}'
+        # config_file: '{{ mysql_default_config_file }}'
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
         check_implicit_admin: yes
       register: mysql_version_out
       become: true
-      with_items:
-        - 127.0.0.1
-        - ::1
-        - localhost
 
     - name: Out mysql_version
       debug:
