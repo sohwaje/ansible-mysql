@@ -1,5 +1,6 @@
 - name: Add MySQL user & group
   user:
-    name: mysql
+    name: "{{ item }}"
     shell: /bin/false
     group: mysql
+    append: yes
