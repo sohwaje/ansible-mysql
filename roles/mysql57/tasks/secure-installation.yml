@@ -5,6 +5,7 @@
   block:
     - name: Check mysql version
       mysql_user:
+        name: '{{ mysql_root_username }}'
         # variable: version
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
