@@ -33,12 +33,12 @@
     - "mysqllog/redo"
     - "mysqllog/undo"
 
-  - name: List /data
-    shell: "ls -lht /data"
-    register: result
-  - name: show /data
-    debug:
-      msg: "{{ result.stdout }}"
+- name: List /data
+  shell: "ls -lht /data"
+  register: result
+- name: show /data
+  debug:
+    msg: "{{ result.stdout }}"
 
 - name: Download and Extract MySQL Generic binary version
   unarchive:
@@ -52,7 +52,7 @@
   poll: 0
   shell:
     "./bin/mysqld"
-  args:
+  argv:
     -
     chdir: "/mysql/bin"
   register: result
