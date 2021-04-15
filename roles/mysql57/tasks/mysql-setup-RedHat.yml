@@ -18,7 +18,8 @@
     state: directory
     owner: mysql
     group: mysql
-
+  become: yes
+  
 - name: Download and Extract MySQL Generic binary version
   unarchive:
     src: "{{ download_url }}"
