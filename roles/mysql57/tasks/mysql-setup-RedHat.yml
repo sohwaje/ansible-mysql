@@ -11,3 +11,9 @@
     group: mysql
     append: yes
   become: yes
+
+- name: Download and Extract MySQL Generic binary version
+  unarchive:
+    src: "{{ download_url }}"
+    dest: "/tmp"
+    remote_src: yes
