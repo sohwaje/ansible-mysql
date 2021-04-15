@@ -19,7 +19,7 @@
 
 - name: Create MySQL directory data and log
   file:
-    path: /data/{{ item }}
+    path: "/data/{{ item }}"
     owner: mysql
     group: mysql
     mode: 0755
@@ -32,6 +32,13 @@
     - 'mysqllog/redo'
     - 'mysqllog/undo'
 
+  - name: List /data
+    command: ls -lht /data
+    register: result
+  - name: show /data
+    debug:
+      msg: "{{ result }}"
+      
 - name: Download and Extract MySQL Generic binary version
   unarchive:
     src: "{{ download_url }}"
