@@ -4,7 +4,7 @@
 - name: Make new mysql admin user
   block:
     - name: Check mysql version
-      mysql_variables:
+      mysql_user:
         variable: version
         login_user: '{{ mysql_root_username }}'
         login_password: '{{ mysql_root_password }}'
