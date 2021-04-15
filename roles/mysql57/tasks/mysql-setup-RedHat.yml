@@ -19,19 +19,18 @@
 
 - name: Create MySQL directory data and log
   file:
-    path: /data/{{ item.0 }}/{{ item.1 }}
+    path: /data/{{ item }}
     owner: mysql
     group: mysql
     mode: 0755
     recurse: yes
     state: directory
-  with_nested:
-    - ['mysqldata','']
-    - ['mysqllog','error']
-    - ['mysqllog','binary']
-    - ['mysqllog','slow']
-    - ['mysqllog','redo']
-    - ['mysqllog','undo']
+  with_item:
+    - 'mysqldata/error'
+    - 'mysqllog/binary'
+    - 'mysqllog/slow'
+    - 'mysqllog/redo'
+    - 'mysqllog/undo'
 
 - name: Download and Extract MySQL Generic binary version
   unarchive:
