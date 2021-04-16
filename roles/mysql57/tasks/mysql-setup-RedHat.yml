@@ -45,7 +45,6 @@
     path: "/data/{{ item }}/error/mysql.err"
     owner: mysql
     group: mysql
-    recurse: yes
     state: touch
   with_items:
     - "mysqllog"
