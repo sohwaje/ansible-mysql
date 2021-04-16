@@ -40,12 +40,12 @@
   debug:
     msg: "{{ result.stdout_lines }}"
 
-# - name: Download and Extract MySQL Generic binary version
-#   unarchive:
-#     src: "{{ download_url }}"
-#     dest: "/mysql"
-#     extra_opts: [--strip-components=1]
-#     remote_src: yes
+- name: Download and Extract MySQL Generic binary version
+  unarchive:
+    src: "{{ download_url }}"
+    dest: "/mysql"
+    extra_opts: [--strip-components=1]
+    remote_src: yes
 
 - name: Check MySQL DataDirector is empty or not
   shell: |
@@ -58,14 +58,7 @@
   failed_when: "'Directory Not Empty ===> Stop install' in result.stdout_lines"
 
 - name: Install MySQL
-  command: "./bin/mysqld"
-  argv:
-    - "--basedir=/mysql"
-    - "--datadir=/mysql_data/data"
-    - "--initialize"
-    - "--user=mysql"
-    chdir: "/mysql"
-#   register: result
-# - name: Display Install process
-#   debug:
-#     msg: "{{ result.stdout_liness }}"
+  command: "./bin/mysqld --basedir=/mysql --datadir=/mysql_data/data --initialize --user=mysql"
+  register: result
+- debug:
+    msg: "{{ result.stdout_lines }}"
