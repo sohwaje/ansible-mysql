@@ -112,26 +112,12 @@
     delay: 10
     timeout: 30
 
-# - name: Update Root user Password
-#   command: "{{ mysql_daemon_path }}" --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
-#   vars:
-#     ansible_python_interpreter: /usr/bin/python3
-#   notify: restart mysql
-
-- name: Update mysql root password for all root accounts
-  mysql_user:
-    name: root
-    host_all: true
-    password: '{{ mysql_root_password }}'
-    check_implicit_admin: true
-    priv: '*.*:ALL,GRANT'
-    login_user: 'root'
-    login_password: '{{ root_password.stdout }}'
-    login_unix_socket: '{{ mysql_default_sock }}'
-    config_file: '/etc/my.cnf'
+- name: Update Root user Password
+  shell: "{{ mysql_daemon_path }}" --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
   vars:
     ansible_python_interpreter: /usr/bin/python3
-  # no_log: true
+  notify: restart mysql
+
 # - name: Create mysql Clinet user
 #   mysql_user:
 #     login_user: root
