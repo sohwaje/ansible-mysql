@@ -76,16 +76,11 @@
 - name: get root password
   shell: "grep 'A temporary password is generated for root@localhost' {{ mysql_default_error_log_file }} | awk -F ' ' '{print $(NF)}'"
   register: root_password
-# - debug:
-#     msg: "{{ root_password.stdout }}"
 
 - name: Copy mysql systemd
   template:
     src: mysql.server.j2
     dest: /usr/lib/systemd/system/mysql.service
-#   register: result
-# - debug:
-#     msg: "{{ result.stdout_lines }}"
 
 - name: Copy my.cnf
   template:
@@ -93,9 +88,6 @@
     dest: "/etc/my.cnf"
     notify:
       - restart mysql
-  register: result
-- debug:
-    msg: "{{ result.stdout_lines }}"
 
 - name: update root password
   mysql_user:
