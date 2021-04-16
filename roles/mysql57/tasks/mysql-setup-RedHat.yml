@@ -62,3 +62,9 @@
   register: result
 - debug:
     msg: "{{ result.stdout_lines }}"
+
+- name: get root password
+  shell: "grep 'A temporary password is generated for root@localhost' /data/mysqllog/error/mysql.err | awk -F ' ' '{print $(NF)}'"
+  register: result
+- debug:
+    msg: "{{ result.stdout_lines }}"
