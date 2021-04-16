@@ -57,7 +57,7 @@
   register: result
   failed_when: "'Directory Not Empty ===> Stop install' in result.stdout_lines"
 
-# - name: Install MySQL
+- name: Install MySQL
   command:
   argv:
     - "./bin/mysqld"
