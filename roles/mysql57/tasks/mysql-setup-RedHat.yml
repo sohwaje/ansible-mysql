@@ -46,7 +46,9 @@
     owner: mysql
     group: mysql
     recurse: yes
-  with_items
+  with_items:
+    - "mysqllog"
+    
 - name: Download and Extract MySQL Generic binary version
   unarchive:
     src: "{{ download_url }}"
