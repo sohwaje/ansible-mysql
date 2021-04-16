@@ -59,6 +59,8 @@
 - debug:
     msg: "{{ result.stdout_lines }}"
 
+- name: test
+  shell: "ls"
 # - name: Install MySQL
 #   async: 10
 #   poll: 0
