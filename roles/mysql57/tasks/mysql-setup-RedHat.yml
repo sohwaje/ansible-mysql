@@ -106,7 +106,7 @@
 #   when: ansible_service_mgr == "systemd"
 
 - name: 'Update {{ username }} user (if plugin == mysql_native_password)'
-  command: /mysql/bin/mysql -u root -p'{{ root_password.stdout }}' --execute="ALTER USER 'root'@'localhost' identified by BY '"{{ mysql_root_password }}"';"
+  command: /mysql/bin/mysql -u root -p'{{ root_password.stdout }}' --execute="ALTER USER 'root'@'localhost' identified by BY '"{{ mysql_root_password }}"' --connect-expired-password;"
 #   mysql_user:
 #     login_user: "root"
 #     login_password: "{{ root_password.stdout }}"
