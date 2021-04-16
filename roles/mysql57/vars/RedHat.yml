@@ -8,6 +8,8 @@ mysql_default_tmp_dir: "/data/mysqltmp"
 mysql_defualt_binlog_dir: "/data/mysqllog/binary"
 mysql_default_sock: "/tmp/mysql.sock"
 mysql_root_password: "!#SI0aleldj*)"
+mysql_default_port: "3306"
+mysql_bind_address: "127.0.0.1"
 max_connections: "200"
 mysql_default_python_packages:
   - gcc
