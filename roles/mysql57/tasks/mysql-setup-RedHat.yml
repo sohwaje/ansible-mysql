@@ -95,6 +95,7 @@
   copy:
     src: "{{ mysql_daemon_path }}"
     dest: /usr/bin/mysql
+    remote_src: yes
 
 # - name: Copy my.cnf
 #   template:
