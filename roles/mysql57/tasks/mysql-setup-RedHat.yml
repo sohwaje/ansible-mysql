@@ -108,7 +108,7 @@
 - name: 'Update {{ username }} user (if plugin == mysql_native_password)'
   mysql_user:
     login_user: "root"
-    login_password: "{{ root_password }}"
+    login_password: "{{ root_password.stdout }}"
     name: "root"
     password: "{{ mysql_root_password }}"
     host: "localhost"
