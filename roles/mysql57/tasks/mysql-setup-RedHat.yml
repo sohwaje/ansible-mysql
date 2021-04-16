@@ -111,9 +111,9 @@
     check_implicit_admin: true
     priv: '*.*:ALL,GRANT'
     login_user: "root"
-    login_password: "{{ root_password.stdout }}"
-    name: "root"
     login_password: "{{ mysql_root_password }}"
     login_unix_socket: "{{ mysql_default_sock }}"
   register: result
+    vars:
+      ansible_python_interpreter: /usr/bin/python3
   notify: restart mysql
