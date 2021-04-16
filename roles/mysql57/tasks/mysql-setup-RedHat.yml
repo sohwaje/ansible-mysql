@@ -86,8 +86,14 @@
   template:
     src: my.cnf.j2
     dest: "/etc/my.cnf"
-    notify:
-      - restart mysql
+
+- name: Start and enable MySQL
+  service:
+    daemon_reload: yes
+    name: "mysql"
+    state: started
+    enabled: yes
+  when: ansible_service_mgr == "systemd"
 
 - name: update root password
   mysql_user:
@@ -100,3 +106,4 @@
   register: result
 - debug:
     msg: "{{ result.stdout_lines }}"
+  notify: restart mysql
