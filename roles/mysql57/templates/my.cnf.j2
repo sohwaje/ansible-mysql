@@ -1,17 +1,17 @@
 # 4Core 8GB
 [client]
 port            = 3306
-socket          = /tmp/mysql.sock
+socket          = {{ mysql_default_sock }}
 #default-character-set = utf8mb4
 
 [mysqld]
 port            = 3306
-socket          = /tmp/mysql.sock
+socket          = {{ mysql_default_sock }}
 #default-character-set = utf8mb4
 
-basedir = /usr/local/mysql
-datadir = /data/mysql_data
-tmpdir = /data/mysql_tmp
+basedir = {{ mysql_default_base_dir }}
+datadir = {{ mysql_default_data_dir }}
+tmpdir = {{ mysql_default_tmp_dir }}
 
 ## default
 back_log = 450
@@ -35,7 +35,7 @@ init_connect = "set names utf8mb4 collate utf8mb4_unicode_ci"
 collation-server = utf8mb4_unicode_ci
 
 ## Connections
-max_connections = 200
+max_connections = {{ max_connections }}
 max_connect_errors = 10000
 max_allowed_packet = 16M #1024M
 open_files_limit = 65535
@@ -55,14 +55,14 @@ query_cache_size = 0
 query_cache_limit = 0
 
 ## Logging
-log_error = /data/mysql_log/mysql.err
+log_error = {{ mysql_default_error_log_file }}
 log-warnings = 2
 log-output = FILE
 log_timestamps = SYSTEM
 general_log = 0
-general_log_file = /data/mysql_log/general_query.log
+general_log_file = {{ mysql_default_log_dir }}/general_query.log
 slow_query_log = 1
-slow_query_log_file = /data/mysql_log/slowquery.log
+slow_query_log_file = {{ mysql_default_log_dir }}/slow/slowquery.log
 long_query_time = 10
 
 ## MySQL Metric
@@ -75,11 +75,11 @@ server-id = 1
 slave_parallel_type = LOGICAL_CLOCK
 slave_parallel_workers = 0
 
-log-bin=/data/mysql_log/mysql_binlog/mysql-bin
+log-bin={{ mysql_defualt_binlog_dir }}/mysql-bin
 binlog_format = ROW
 max_binlog_size = 1G
 expire_logs_days = 3
-#relay_log=/data/mysql_log/mysql_binlog/mysql-relay
+#relay_log={{ mysql_defualt_binlog_dir }}/mysql-relay
 #read_only = 1
 sysdate-is-now
 sync_binlog = 1
