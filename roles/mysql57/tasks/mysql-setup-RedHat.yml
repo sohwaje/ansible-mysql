@@ -65,7 +65,7 @@
     - "--datadir=/mysql_data/data"
     - "--initialize"
     - "--user=mysql"
-    chdir: "/mysql/bin"
+    chdir: "/mysql"
   register: result
 - name: Display Install process
   debug:
