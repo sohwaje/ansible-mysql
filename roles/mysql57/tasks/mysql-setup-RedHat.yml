@@ -57,20 +57,16 @@
   register: result
   failed_when: "'Directory Not Empty ===> Stop install' in result.stdout_lines"
 
-- name: test
-  shell: "ls"
 # - name: Install MySQL
-#   async: 10
-#   poll: 0
-#   shell:
-#     "./bin/mysqld"
-#   argv:
-#     - "--basedir=/mysql"
-#     - "--datadir=/mysql_data/data"
-#     - "--initialize"
-#     - "--user=mysql"
-#     chdir: "/mysql/bin"
-#   register: result
-# - name: Display Install process
-#   debug:
-#     msg: "{{ result.stdout }}"
+  command:
+  argv:
+    - "./bin/mysqld"
+    - "--basedir=/mysql"
+    - "--datadir=/mysql_data/data"
+    - "--initialize"
+    - "--user=mysql"
+    chdir: "/mysql/bin"
+  register: result
+- name: Display Install process
+  debug:
+    msg: "{{ result.stdout }}"
