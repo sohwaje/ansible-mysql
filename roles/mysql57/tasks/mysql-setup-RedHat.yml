@@ -93,9 +93,9 @@
 
 - name: Copy mysql to /usr/bin/
   copy:
-    src: {{ mysql_daemon_path }}
+    src: "{{ mysql_daemon_path }}"
     dest: /usr/bin/mysql
-    state: file
+
 # - name: Copy my.cnf
 #   template:
 #     src: my.cnf.j2
@@ -111,8 +111,8 @@
 
 - name: Wait for service to be ready
   wait_for:
-    port: '{{ mysql_default_port }}'
-    host: '{{ mysql_bind_address }}'
+    port: "{{ mysql_default_port }}"
+    host: "{{ mysql_bind_address }}"
     connect_timeout: 10
     delay: 10
     timeout: 30
