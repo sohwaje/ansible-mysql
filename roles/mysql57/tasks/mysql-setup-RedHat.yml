@@ -131,13 +131,16 @@
     state: absent
     login_user: "root"
     login_password: "{{ mysql_root_password }}"
-
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 - name: Remove MySQL test database
   mysql_db:
     name: test
     state: absent
     login_user: "root"
     login_password: "{{ mysql_root_password }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 # - name: Create mysql Clinet user
 #   mysql_user:
 #     login_user: root
