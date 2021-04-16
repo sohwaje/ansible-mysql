@@ -51,13 +51,11 @@
   shell: |
     if [ -z "$(/data/mysqldata)" ]; then
         echo "Directory Not Empty ===> Stop install"
-        exit 0
     else
         echo "Directory Empty ===> install"
     fi
   register: result
-- debug:
-    msg: "{{ result.stdout_lines }}"
+  failed_when: "'Directory Not Empty' in result.stdout_lines"
 
 - name: test
   shell: "ls"
