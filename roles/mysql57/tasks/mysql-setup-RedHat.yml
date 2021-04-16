@@ -38,7 +38,7 @@
   register: result
 - name: show /data
   debug:
-    msg: "{{ result.stdout }}"
+    msg: "{{ result.stdout_lines }}"
 
 - name: Download and Extract MySQL Generic binary version
   unarchive:
@@ -46,6 +46,18 @@
     dest: "/mysql"
     extra_opts: [--strip-components=1]
     remote_src: yes
+
+- name: Check MySQL DataDirector is empty or not
+  shell: |
+    if [ -z "$(/data/mysqldata)" ]; then
+        echo "Directory Empty ===> GO install"
+    else
+        echo "Directory Not Empty ===> Stop install"
+        exit 0
+    fi
+  register: result
+- debug:
+    msg: "{{ result.stdout_lines }}"
 
 # - name: Install MySQL
 #   async: 10
