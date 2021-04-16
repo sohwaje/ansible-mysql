@@ -112,13 +112,11 @@
 #   when: ansible_service_mgr == "systemd"
 
 - name: Wait for service to be ready
-  wait_for:
-    port: "{{ mysql_default_port }}"
-    host: "{{ mysql_bind_address }}"
-    register: result
-    until: result.stdout.find("allowed to connect to this MySQL server") != -1
-    retries: 5
-    delay: 30
+  command: curl "{{ mysql_bind_address }}:{{ mysql_default_port }}"
+  register: result
+  until: result.stdout.find("allowed to connect to this MySQL server") != -1
+  retries: 5
+  delay: 30
 
 - name: Update Root user Password
   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
