@@ -1,112 +1,112 @@
-# ref : https://www.soudegesu.com/en/mysql/mysql8-password/
-- name: Install requirements
-  yum:
-    name: "{{ mysql_default_python_packages }}"
-    state: present
-    update_cache: true
-  register: result
-  until: result is succeeded
-
-- name: Create group MySQL
-  group:
-    name: mysql
-    state: present
-
-- name: ADD MySQL user
-  user:
-    name: mysql
-    shell: /bin/false
-    group: mysql
-    append: yes
-
-- name: Create MySQL Engine directory
-  file:
-    path: "{{ mysql_default_base_dir }}"
-    state: directory
-    owner: mysql
-    group: mysql
-
-- name: Create MySQL directory data and log
-  file:
-    path: "{{ mysql_default_root_data_dir }}/{{ item }}"
-    owner: mysql
-    group: mysql
-    mode: 0755
-    recurse: yes
-    state: directory
-  with_items:
-    - "mysqldata"
-    - "mysqltmp"
-    - "mysqllog/error"
-    - "mysqllog/binary"
-    - "mysqllog/slow"
-    - "mysqllog/redo"
-    - "mysqllog/undo"
-
-- name: List {{ mysql_default_root_data_dir }}
-  shell: "ls -lht {{ mysql_default_root_data_dir }}"
-  register: result
-- name: show {{ mysql_default_root_data_dir }}
-  debug:
-    msg: "{{ result.stdout_lines }}"
-
-- name: Create MySQL error log file
-  file:
-    path: "{{ mysql_default_error_log_file }}"
-    owner: mysql
-    group: mysql
-    state: touch
-
-- name: Download and Extract MySQL Generic binary version
-  unarchive:
-    src: "{{ download_url }}"
-    dest: "{{ mysql_default_base_dir }}"
-    extra_opts: [--strip-components=1]
-    remote_src: yes
-
-- name: Check MySQL DataDirector is empty or not
-  shell: |
-    if [ "$(ls -A {{ mysql_default_data_dir }})" ]; then
-        echo "Directory Not Empty ===> Stop install"
-    else
-        echo "Directory Empty ===> install"
-    fi
-  register: result
-  failed_when: "'Directory Not Empty ===> Stop install' in result.stdout_lines"
-
-- name: Install MySQL
-  command: "./bin/mysqld --basedir={{ mysql_default_base_dir }} --datadir={{ mysql_default_data_dir }} --log_error={{ mysql_default_error_log_file }} --initialize --user=mysql"
-  register: result
-  args:
-    chdir: "{{ mysql_default_base_dir }}"
-- debug:
-    msg: "{{ result.stdout_lines }}"
+# # ref : https://www.soudegesu.com/en/mysql/mysql8-password/
+# - name: Install requirements
+#   yum:
+#     name: "{{ mysql_default_python_packages }}"
+#     state: present
+#     update_cache: true
+#   register: result
+#   until: result is succeeded
+#
+# - name: Create group MySQL
+#   group:
+#     name: mysql
+#     state: present
+#
+# - name: ADD MySQL user
+#   user:
+#     name: mysql
+#     shell: /bin/false
+#     group: mysql
+#     append: yes
+#
+# - name: Create MySQL Engine directory
+#   file:
+#     path: "{{ mysql_default_base_dir }}"
+#     state: directory
+#     owner: mysql
+#     group: mysql
+#
+# - name: Create MySQL directory data and log
+#   file:
+#     path: "{{ mysql_default_root_data_dir }}/{{ item }}"
+#     owner: mysql
+#     group: mysql
+#     mode: 0755
+#     recurse: yes
+#     state: directory
+#   with_items:
+#     - "mysqldata"
+#     - "mysqltmp"
+#     - "mysqllog/error"
+#     - "mysqllog/binary"
+#     - "mysqllog/slow"
+#     - "mysqllog/redo"
+#     - "mysqllog/undo"
+#
+# - name: List {{ mysql_default_root_data_dir }}
+#   shell: "ls -lht {{ mysql_default_root_data_dir }}"
+#   register: result
+# - name: show {{ mysql_default_root_data_dir }}
+#   debug:
+#     msg: "{{ result.stdout_lines }}"
+#
+# - name: Create MySQL error log file
+#   file:
+#     path: "{{ mysql_default_error_log_file }}"
+#     owner: mysql
+#     group: mysql
+#     state: touch
+#
+# - name: Download and Extract MySQL Generic binary version
+#   unarchive:
+#     src: "{{ download_url }}"
+#     dest: "{{ mysql_default_base_dir }}"
+#     extra_opts: [--strip-components=1]
+#     remote_src: yes
+#
+# - name: Check MySQL DataDirector is empty or not
+#   shell: |
+#     if [ "$(ls -A {{ mysql_default_data_dir }})" ]; then
+#         echo "Directory Not Empty ===> Stop install"
+#     else
+#         echo "Directory Empty ===> install"
+#     fi
+#   register: result
+#   failed_when: "'Directory Not Empty ===> Stop install' in result.stdout_lines"
+#
+# - name: Install MySQL
+#   command: "./bin/mysqld --basedir={{ mysql_default_base_dir }} --datadir={{ mysql_default_data_dir }} --log_error={{ mysql_default_error_log_file }} --initialize --user=mysql"
+#   register: result
+#   args:
+#     chdir: "{{ mysql_default_base_dir }}"
+# - debug:
+#     msg: "{{ result.stdout_lines }}"
 
 - name: get root password
   shell: "grep 'A temporary password is generated for root@localhost' {{ mysql_default_error_log_file }} | awk -F ' ' '{print $(NF)}'"
   register: root_password
 
-- name: Copy mysql systemd
-  template:
-    src: mysql.server.j2
-    dest: /usr/lib/systemd/system/mysql.service
-
-- name: Copy my.cnf
-  template:
-    src: my.cnf.j2
-    dest: "/etc/my.cnf"
-
-- name: Start and enable MySQL
-  service:
-    daemon_reload: yes
-    name: "mysql"
-    state: started
-    enabled: yes
-  when: ansible_service_mgr == "systemd"
+# - name: Copy mysql systemd
+#   template:
+#     src: mysql.server.j2
+#     dest: /usr/lib/systemd/system/mysql.service
+#
+# - name: Copy my.cnf
+#   template:
+#     src: my.cnf.j2
+#     dest: "/etc/my.cnf"
+#
+# - name: Start and enable MySQL
+#   service:
+#     daemon_reload: yes
+#     name: "mysql"
+#     state: started
+#     enabled: yes
+#   when: ansible_service_mgr == "systemd"
 
 - name: Wait for service to be ready
   wait_for:
-    port: '{{ mysql_port }}'
+    port: '{{ mysql_default_port }}'
     host: '{{ mysql_bind_address }}'
     connect_timeout: 10
     delay: 10
