@@ -112,8 +112,8 @@
     host: "localhost"
     login_unix_socket: "{{ mysql_default_sock }}"
     config_file: "/etc/my.cnf"
-- debug:
-    msg: "{{ root_password.stdout_lines |strings }}"
+# - debug:
+#     msg: "{{ root_password.stdout_lines |strings }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
   notify: restart mysql
