@@ -113,7 +113,7 @@
     timeout: 30
 
 - name: Update Root user Password
-  command: '{{ mysql_daemon_path }}' --user root --password='{{ root_password.stdout }}' --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
+  command: {{ mysql_daemon_path }} --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
   vars:
     ansible_python_interpreter: /usr/bin/python3
   notify: restart mysql
