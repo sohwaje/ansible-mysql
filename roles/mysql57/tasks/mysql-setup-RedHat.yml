@@ -105,7 +105,7 @@
   when: ansible_service_mgr == "systemd"
 
 - name: Update Root user Password
-  command: {{ mysql_default_base_dir }}/bin/mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
+  command: /mysql/bin/mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
   vars:
     ansible_python_interpreter: /usr/bin/python3
   notify: restart mysql
