@@ -90,7 +90,12 @@
 #   template:
 #     src: mysql.server.j2
 #     dest: /usr/lib/systemd/system/mysql.service
-#
+
+- name: Copy mysql to /usr/bin/
+  copy:
+    src: {{ mysql_daemon_path }}
+    dest: /usr/bin/mysql
+    state: file
 # - name: Copy my.cnf
 #   template:
 #     src: my.cnf.j2
@@ -113,7 +118,7 @@
     timeout: 30
 
 - name: Update Root user Password
-  shell: {{ mysql_daemon_path }} --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
+  shell: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
   vars:
     ansible_python_interpreter: /usr/bin/python3
   notify: restart mysql
