@@ -2,18 +2,3 @@
   become: yes
   roles:
     - role: mysql57
-  vars:
-    mysql_root_password: Super_P@s$0rd
-    mysql_databases:
-      - name: sample_db
-        encoding: utf8mb4
-        collation: utf8mb4_unicode_ci
-    mysql_users:
-      - name: sample_user
-        host: "%"
-        password: Super_P@s$0rd
-        priv: "example2_db.*:ALL"
-    mysql_port: 3306
-    mysql_bind_address: '0.0.0.0'
-    mysql_daemon: mysqld
-    mysql_version: 5.7
