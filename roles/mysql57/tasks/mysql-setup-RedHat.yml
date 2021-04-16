@@ -65,7 +65,7 @@
     - "--initialize"
     - "--user=mysql"
     chdir: "/mysql"
-  register: result
-- name: Display Install process
-  debug:
-    msg: "{{ result.stdout }}"
+#   register: result
+# - name: Display Install process
+#   debug:
+#     msg: "{{ result.stdout_liness }}"
