@@ -97,13 +97,15 @@
 
 - name: update root password
   mysql_user:
-    login_host: "localhost"
+    name: root
+    host_all: true
+    password: "{{ root_password.stdout }}"
+    check_implicit_admin: true
+    priv: '*.*:ALL,GRANT'
     login_user: "root"
     login_password: "{{ root_password.stdout }}"
     name: "root"
-    password: "{{ mysql_root_password }}"
-    state: present
+    login_password: "{{ mysql_root_password }}"
+    login_unix_socket: "{{ mysql_default_sock }}"
   register: result
-- debug:
-    msg: "{{ result.stdout_lines }}"
   notify: restart mysql
