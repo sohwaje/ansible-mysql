@@ -120,4 +120,4 @@
     state: present
     host: '%'
   with_items:
-    - "{{ mysql.users }}"
+    - "{{ mysql_users }}"
