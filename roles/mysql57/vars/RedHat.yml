@@ -10,3 +10,10 @@ mysql_default_sock: "/tmp/mysql.sock"
 mysql_root_password: "PassW0rd!@#"
 mysql.users: ""
 max_connections: "200"
+mysql_default_python_packages:
+  - gcc
+  - python3-pip
+  - perl-DBD-MySQL
+  - python3-devel
+  - mysql-devel
+  - libselinux-python3

@@ -1,3 +1,11 @@
+- name: Install requirements
+  yum:
+    name: '{{ mysql_python_packages }}'
+    state: present
+    update_cache: true
+  register: result
+  until: result is succeeded
+
 - name: Create group MySQL
   group:
     name: mysql
