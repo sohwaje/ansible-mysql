@@ -85,7 +85,7 @@
   shell: "grep 'A temporary password is generated for root@localhost' {{ mysql_default_error_log_file }} | awk -F ' ' '{print $(NF)}'"
   register: root_password
 - debug:
-    msg: "{{ root_password.stdout_lines |strings }}"
+    msg: "{{ root_password.stdout |strings }}"
 
 # - name: Copy mysql systemd
 #   template:
