@@ -1,3 +1,4 @@
+# ref : https://www.soudegesu.com/en/mysql/mysql8-password/
 - name: Install requirements
   yum:
     name: "{{ mysql_default_python_packages }}"
@@ -104,19 +105,19 @@
   when: ansible_service_mgr == "systemd"
 
 - name: 'Update {{ username }} user (if plugin == mysql_native_password)'
-  command: /mysql/bin/mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
-
-#   mysql_user:
-#   mysql_user:
-#     login_user: "root"
-#     login_password: "{{ root_password.stdout }}"
-#     name: "root"
-#     password: "{{ mysql_root_password }}"
-#     host: "localhost"
-#     login_unix_socket: "{{ mysql_default_sock }}"
-#     config_file: "/etc/my.cnf"
-# # - debug:
-#     msg: "{{ root_password.stdout_lines |strings }}"
+  command: {{ mysql_default_base_dir }}/bin/mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
   vars:
     ansible_python_interpreter: /usr/bin/python3
   notify: restart mysql
+
+- name: Create mysql Clinet user
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    priv: '*.*:ALL,GRANT'
+    state: present
+    host: '%'
+  with_items:
+    - "{{ mysql.users }}"
