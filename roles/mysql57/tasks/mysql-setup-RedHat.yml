@@ -106,15 +106,16 @@
 #   when: ansible_service_mgr == "systemd"
 
 - name: 'Update {{ username }} user (if plugin == mysql_native_password)'
-  mysql_user:
-    login_user: "root"
-    login_password: "{{ root_password.stdout }}"
-    name: "root"
-    password: "{{ mysql_root_password }}"
-    host: "localhost"
-    login_unix_socket: "{{ mysql_default_sock }}"
-    config_file: "/etc/my.cnf"
-# - debug:
+  command: /mysql/bin/mysql -u root -p{{ root_password }}--execute="ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '"{{ mysql_root_password }}"';"
+#   mysql_user:
+#     login_user: "root"
+#     login_password: "{{ root_password.stdout }}"
+#     name: "root"
+#     password: "{{ mysql_root_password }}"
+#     host: "localhost"
+#     login_unix_socket: "{{ mysql_default_sock }}"
+#     config_file: "/etc/my.cnf"
+# # - debug:
 #     msg: "{{ root_password.stdout_lines |strings }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
