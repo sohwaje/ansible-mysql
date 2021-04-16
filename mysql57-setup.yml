@@ -1,7 +1,4 @@
 - hosts: "{{ hosts }}"
-  vars_prompt:
-    - name: "PASSWORD"
-      prompt: "Input TEMPORARY ROOT PASSWORD"
   become: yes
   roles:
     - role: mysql57
