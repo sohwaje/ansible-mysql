@@ -1,6 +1,6 @@
 - name: Install requirements
   yum:
-    name: '{{ mysql_python_packages }}'
+    name: "{{ mysql_default_python_packages }}"
     state: present
     update_cache: true
   register: result
