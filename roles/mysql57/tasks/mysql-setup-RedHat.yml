@@ -115,9 +115,10 @@
   wait_for:
     port: "{{ mysql_default_port }}"
     host: "{{ mysql_bind_address }}"
-    connect_timeout: 10
-    delay: 10
-    timeout: 30
+    register: result
+    until: result.stdout.find("allowed to connect to this MySQL server") != -1
+    retries: 5
+    delay: 30
 
 - name: Update Root user Password
   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
@@ -125,6 +126,20 @@
     ansible_python_interpreter: /usr/bin/python3
   notify: restart mysql
 
+- name: Remove anonymous MySQL users
+  mysql_user:
+    name: ''
+    host_all: true
+    state: absent
+    login_user: "root"
+    login_password: "{{ mysql_root_password }}"
+
+- name: Remove MySQL test database
+  mysql_db:
+    name: test
+    state: absent
+    login_user: "root"
+    login_password: "{{ mysql_root_password }}"
 # - name: Create mysql Clinet user
 #   mysql_user:
 #     login_user: root
