@@ -115,3 +115,5 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
   notify: restart mysql
+- debug:
+    msg: "{{ root_password.stdout_lines }}"
