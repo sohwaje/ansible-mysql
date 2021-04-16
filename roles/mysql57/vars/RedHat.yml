@@ -7,8 +7,7 @@ mysql_default_base_dir: "/mysql"
 mysql_default_tmp_dir: "/data/mysqltmp"
 mysql_defualt_binlog_dir: "/data/mysqllog/binary"
 mysql_default_sock: "/tmp/mysql.sock"
-mysql_root_password: "PassW0rd!@#"
-mysql.users: ""
+mysql_root_password: "!#SI0aleldj*)"
 max_connections: "200"
 mysql_default_python_packages:
   - gcc
