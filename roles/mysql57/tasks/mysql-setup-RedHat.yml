@@ -84,8 +84,6 @@
 - name: get root password
   shell: "grep 'A temporary password is generated for root@localhost' {{ mysql_default_error_log_file }} | awk -F ' ' '{print $(NF)}'"
   register: root_password
-- debug:
-    msg: "{{ root_password.stdout }}"
 
 # - name: Copy mysql systemd
 #   template:
@@ -106,8 +104,8 @@
 #   when: ansible_service_mgr == "systemd"
 
 - name: 'Update {{ username }} user (if plugin == mysql_native_password)'
-  # command: /mysql/bin/mysql -u root -p'{{ root_password.stdout }}' --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
-  command: "/mysql/bin/mysql -u root -p'x;DMX3SM<(+d'"
+  command: /mysql/bin/mysql -user root --password='{{ root_password.stdout }}' --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
+
 #   mysql_user:
 #   mysql_user:
 #     login_user: "root"
