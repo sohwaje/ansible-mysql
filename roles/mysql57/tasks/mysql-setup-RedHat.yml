@@ -49,10 +49,10 @@
 
 - name: Check MySQL DataDirector is empty or not
   shell: |
-    if [ -z "$(/data/mysqldata)" ]; then
-        echo "Directory Not Empty ===> Stop install"
-    else
+    if [ "$(ls -A /data/mysqldata)" ]; then
         echo "Directory Empty ===> install"
+    else
+        echo "Directory Not Empty ===> Stop install"
     fi
   register: result
   failed_when: "'Directory Not Empty' in result.stdout_lines"
