@@ -1,3 +1,5 @@
 ---
 - name: restart mysql
-  include_tasks: mysql_restart.yml
+  service:
+    name: mysql
+    state: restarted
