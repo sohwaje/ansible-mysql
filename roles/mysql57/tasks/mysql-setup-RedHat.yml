@@ -42,13 +42,14 @@
 
 - name: Create MySQL error log file
   file:
-    path: "/data/{{ item }}/mysql.err"
+    path: "/data/{{ item }}/error/mysql.err"
     owner: mysql
     group: mysql
     recurse: yes
+    state: touch
   with_items:
     - "mysqllog"
-    
+
 - name: Download and Extract MySQL Generic binary version
   unarchive:
     src: "{{ download_url }}"
