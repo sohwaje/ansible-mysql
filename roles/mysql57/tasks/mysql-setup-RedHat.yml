@@ -81,10 +81,10 @@
 # - debug:
 #     msg: "{{ result.stdout_lines }}"
 #
-# - name: get root password
-#   shell: "grep 'A temporary password is generated for root@localhost' {{ mysql_default_error_log_file }} | awk -F ' ' '{print $(NF)}'"
-#   register: root_password
-#
+- name: get root password
+  shell: "grep 'A temporary password is generated for root@localhost' {{ mysql_default_error_log_file }} | awk -F ' ' '{print $(NF)}'"
+  register: root_password
+
 # - name: Copy mysql systemd
 #   template:
 #     src: mysql.server.j2
