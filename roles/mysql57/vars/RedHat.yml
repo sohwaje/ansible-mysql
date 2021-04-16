@@ -1,5 +1,6 @@
 download_url: 'https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.30-linux-glibc2.12-x86_64.tar.gz'
-mysql_default_error_log_file: ""
-mysql_default_data_dir: ""
-mysql_default_log_dir: ""
-mysql_default_base_dir: ""
+mysql_default_root_data_dir: "/data"
+mysql_default_error_log_file: "/data/mysqllog/error/mysql.err"
+mysql_default_data_dir: "/data/mysqldata"
+mysql_default_log_dir: "/data/mysqllog"
+mysql_default_base_dir: "/mysql"

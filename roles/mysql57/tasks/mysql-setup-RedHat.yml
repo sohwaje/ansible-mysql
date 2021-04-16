@@ -12,14 +12,14 @@
 
 - name: Create MySQL Engine directory
   file:
-    path: /mysql
+    path: "{{ mysql_default_base_dir }}"
     state: directory
     owner: mysql
     group: mysql
 
 - name: Create MySQL directory data and log
   file:
-    path: "/data/{{ item }}"
+    path: "{{ mysql_default_root_data_dir }}/{{ item }}"
     owner: mysql
     group: mysql
     mode: 0755
@@ -33,32 +33,30 @@
     - "mysqllog/redo"
     - "mysqllog/undo"
 
-- name: List /data
-  shell: "ls -lht /data"
+- name: List {{ mysql_default_root_data_dir }}
+  shell: "ls -lht {{ mysql_default_root_data_dir }}"
   register: result
-- name: show /data
+- name: show {{ mysql_default_root_data_dir }}
   debug:
     msg: "{{ result.stdout_lines }}"
 
 - name: Create MySQL error log file
   file:
-    path: "/data/{{ item }}/error/mysql.err"
+    path: "{{ mysql_default_error_log_file }}"
     owner: mysql
     group: mysql
     state: touch
-  with_items:
-    - "mysqllog"
 
 - name: Download and Extract MySQL Generic binary version
   unarchive:
     src: "{{ download_url }}"
-    dest: "/mysql"
+    dest: "{{ mysql_default_base_dir }}"
     extra_opts: [--strip-components=1]
     remote_src: yes
 
 - name: Check MySQL DataDirector is empty or not
   shell: |
-    if [ "$(ls -A /data/mysqldata)" ]; then
+    if [ "$(ls -A {{ mysql_default_data_dir }})" ]; then
         echo "Directory Not Empty ===> Stop install"
     else
         echo "Directory Empty ===> install"
@@ -67,15 +65,15 @@
   failed_when: "'Directory Not Empty ===> Stop install' in result.stdout_lines"
 
 - name: Install MySQL
-  command: "./bin/mysqld --basedir=/mysql --datadir=/data/mysqldata --initialize --user=mysql"
+  command: "./bin/mysqld --basedir={{ mysql_default_base_dir }} --datadir={{ mysql_default_data_dir }} --log_error=={{ mysql_default_error_log_file }} --initialize --user=mysql"
   register: result
   args:
-    chdir: "/mysql"
+    chdir: "{{ mysql_default_base_dir }}"
 - debug:
     msg: "{{ result.stdout_lines }}"
 
 - name: get root password
-  shell: "grep 'A temporary password is generated for root@localhost' /data/mysqllog/error/mysql.err | awk -F ' ' '{print $(NF)}'"
+  shell: "grep 'A temporary password is generated for root@localhost' {{ mysql_default_error_log_file }} | awk -F ' ' '{print $(NF)}'"
   register: result
 - debug:
     msg: "{{ result.stdout_lines }}"
