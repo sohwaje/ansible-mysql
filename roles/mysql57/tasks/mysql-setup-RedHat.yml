@@ -40,6 +40,15 @@
   debug:
     msg: "{{ result.stdout_lines }}"
 
+- name: Create MySQL error log file
+  file:
+    path: "/data/{{ item }}/mysql.err"
+    owner: mysql
+    group: mysql
+    recurse: yes
+  with_items:
+    - "mysqllog"
+    
 - name: Download and Extract MySQL Generic binary version
   unarchive:
     src: "{{ download_url }}"
