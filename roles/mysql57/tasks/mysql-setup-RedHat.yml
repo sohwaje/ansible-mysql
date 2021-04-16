@@ -103,17 +103,14 @@
     enabled: yes
   when: ansible_service_mgr == "systemd"
 
-- name: update root password
+- name: 'Update {{ username }} user (if plugin == mysql_native_password)'
   mysql_user:
-    name: root
-    host_all: true
-    password: "{{ root_password.stdout }}"
-    check_implicit_admin: true
-    priv: '*.*:ALL,GRANT'
     login_user: "root"
-    login_password: "{{ mysql_root_password }}"
-    login_unix_socket: "{{ mysql_default_sock }}"
-  register: result
+    login_password: "{{ root_password }}"
+    name: "root"
+    password: "{{ mysql_root_password }}"
+    host: "localhost"
+  when: 'actual_plugin == "mysql_native_password"'
     vars:
       ansible_python_interpreter: /usr/bin/python3
   notify: restart mysql
