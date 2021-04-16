@@ -60,6 +60,7 @@
 - name: Install MySQL
   command: "./bin/mysqld --basedir=/mysql --datadir=/mysql_data/data --initialize --user=mysql"
   register: result
+    chdir: "/mysql"
 - debug:
     msg: "{{ result.stdout_lines }}"
 
