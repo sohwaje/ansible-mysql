@@ -128,7 +128,7 @@
     login_user: 'root'
     login_password: '{{ root_password.stdout }}'
     login_unix_socket: '{{ mysql_socket }}'
-  no_log: true
+  # no_log: true
 # - name: Create mysql Clinet user
 #   mysql_user:
 #     login_user: root
