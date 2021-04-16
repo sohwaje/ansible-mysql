@@ -58,9 +58,8 @@
   failed_when: "'Directory Not Empty ===> Stop install' in result.stdout_lines"
 
 - name: Install MySQL
-  command:
+  command: "./bin/mysqld"
   argv:
-    - "./bin/mysqld"
     - "--basedir=/mysql"
     - "--datadir=/mysql_data/data"
     - "--initialize"
