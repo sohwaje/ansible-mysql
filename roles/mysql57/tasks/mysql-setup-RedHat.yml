@@ -83,9 +83,9 @@
   template:
     src: mysql.server.j2
     dest: /usr/lib/systemd/system/mysql.service
-  register: result
-- debug:
-    msg: "{{ result.stdout_lines }}"
+#   register: result
+# - debug:
+#     msg: "{{ result.stdout_lines }}"
 
 - name: Copy my.cnf
   template:
