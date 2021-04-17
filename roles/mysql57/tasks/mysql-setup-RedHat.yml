@@ -117,16 +117,6 @@
 #   until: result.stdout.find("Welcome to the MySQL monitor>") != -1
 #   retries: 5
 #   delay: 10
-- name: Get MySQL version with non-default credentials
-  mysql_info:
-    login_user: "root"
-    login_password: "{{ root_password.stdout }}"
-    config_file: "/etc/my.cnf"
-    login_unix_socket: "{{ mysql_default_sock }}"
-    filter:
-      - version
-    connect_timeout: 60
-
 - name: Wait for webserver to start.
   local_action:
     module: wait_for
