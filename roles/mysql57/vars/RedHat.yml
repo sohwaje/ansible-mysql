@@ -21,3 +21,5 @@ mysql_default_python_packages:
   - libselinux-python3
 
 mysql_users: "sigongweb"
+services_list:
+  - mysql
