@@ -109,9 +109,6 @@
     name: "mysql"
     state: started
     enabled: yes
-  register: result
-- debug:
-    msg: "{{ result.stdout }}"
 
 - name: sleep for specified interval
   command: sleep 60
