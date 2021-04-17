@@ -7,6 +7,12 @@
   register: result
   until: result is succeeded
 
+- name: Install PyMySQL
+  pip:
+    name: pymysql
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    
 - name: Create group MySQL
   group:
     name: mysql
