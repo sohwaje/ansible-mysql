@@ -120,7 +120,7 @@
 - name: Wait for webserver to start.
   local_action:
     module: wait_for
-    host: "127.0.0.11"
+    host: "127.0.0.1"
     port: "3306"
     delay: 10
     timeout: 300
@@ -128,7 +128,7 @@
 
 - name: sleep for specified interval
   command: sleep 60
-  
+
 - name: Update Root user Password
   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
   vars:
