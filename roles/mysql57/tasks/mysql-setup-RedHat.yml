@@ -57,12 +57,12 @@
     group: mysql
     state: touch
 
-# - name: Download and Extract MySQL Generic binary version
-#   unarchive:
-#     src: "{{ download_url }}"
-#     dest: "{{ mysql_default_base_dir }}"
-#     extra_opts: [--strip-components=1]
-#     remote_src: yes
+- name: Download and Extract MySQL Generic binary version
+  unarchive:
+    src: "{{ download_url }}"
+    dest: "{{ mysql_default_base_dir }}"
+    extra_opts: [--strip-components=1]
+    remote_src: yes
 
 - name: Check MySQL DataDirector is empty or not
   shell: |
@@ -112,14 +112,6 @@
   register: result
 - debug:
     msg: "{{ result.stdout }}"
-
-# - name: Wait for service to be ready
-#   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password
-#   register: result
-#   until: result.stdout.find("Welcome to the MySQL monitor>") != -1
-#   retries: 5
-#   delay: 10
-
 
 - name: sleep for specified interval
   command: sleep 60
