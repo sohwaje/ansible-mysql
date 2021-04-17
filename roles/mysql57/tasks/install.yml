@@ -1,0 +1,44 @@
+- name: Install MySQL
+  command: "./bin/mysqld --basedir={{ mysql_default_base_dir }} --datadir={{ mysql_default_data_dir }} --log_error={{ mysql_default_error_log_file }} --initialize --user=mysql"
+  register: result
+  args:
+    chdir: "{{ mysql_default_base_dir }}"
+- debug:
+    msg: "{{ result.stdout_lines }}"
+
+- name: Copy mysql systemd
+  template:
+    src: mysql.server.j2
+    dest: /usr/lib/systemd/system/mysql.service
+
+- name: Copy mysql to /usr/bin/
+  copy:
+    src: "{{ mysql_daemon_path }}"
+    dest: /usr/bin/mysql
+    remote_src: yes
+    mode: 0755
+
+- name: Copy my.cnf
+  template:
+    src: my.cnf.j2
+    dest: "/etc/my.cnf"
+
+- name: Start and enable MySQL
+  service:
+    daemon_reload: yes
+    name: "mysql"
+    state: started
+    enabled: yes
+
+- name: sleep for specified interval
+  command: sleep 60
+
+- name: get root password
+  shell: "grep 'A temporary password is generated for root@localhost' {{ mysql_default_error_log_file }} | awk -F ' ' '{print $(NF)}'"
+  register: root_password
+
+- name: Update Root user Password
+  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  notify: restart mysql

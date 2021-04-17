@@ -1,0 +1,16 @@
+- name: Download and Extract MySQL Generic binary version
+  unarchive:
+    src: "{{ download_url }}"
+    dest: "{{ mysql_default_base_dir }}"
+    extra_opts: [--strip-components=1]
+    remote_src: yes
+
+- name: Check MySQL DataDirector is empty or not
+  shell: |
+    if [ "$(ls -A {{ mysql_default_data_dir }})" ]; then
+        echo "Directory Not Empty ===> Stop install"
+    else
+        echo "Directory Empty ===> install"
+    fi
+  register: result
+  failed_when: "'Directory Not Empty ===> Stop install' in result.stdout_lines"
