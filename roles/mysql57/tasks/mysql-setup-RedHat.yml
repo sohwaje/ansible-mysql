@@ -109,7 +109,9 @@
     name: "mysql"
     state: started
     enabled: yes
-  when: ansible_service_mgr == "systemd"
+  register: result
+- debug:
+    msg: "{{ result.stdout_lines }}"
 
 # - name: Wait for service to be ready
 #   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password
