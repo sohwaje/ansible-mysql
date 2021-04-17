@@ -116,7 +116,8 @@
   register: result
   until: result.stdout.find("Welcome to the MySQL monitor>") != -1
   retries: 5
-  delay: 60
+  delay: 10
+
 
 - name: Update Root user Password
   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
