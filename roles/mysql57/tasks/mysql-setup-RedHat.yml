@@ -112,9 +112,9 @@
   when: ansible_service_mgr == "systemd"
 
 - name: Wait for service to be ready
-  command: curl "{{ mysql_bind_address }}:{{ mysql_default_port }}"
+  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password
   register: result
-  until: result.stdout.find("allowed to connect to this MySQL server") != -1
+  until: result.stdout.find("Welcome to the MySQL monitor>") != -1
   retries: 5
   delay: 30
 
