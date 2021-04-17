@@ -1,7 +1,7 @@
 - name: Install PyMySQL
   pip:
-    name: pymysql
-    
+    name: boto
+
 - name: Remove anonymous MySQL users
   mysql_user:
     name: ''
