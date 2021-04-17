@@ -1,6 +1,8 @@
 - name: Install PyMySQL
   pip:
-    name: boto
+    name: pymysql
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
 - name: Remove anonymous MySQL users
   mysql_user:
