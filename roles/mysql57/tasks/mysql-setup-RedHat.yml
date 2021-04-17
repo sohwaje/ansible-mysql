@@ -117,14 +117,7 @@
 #   until: result.stdout.find("Welcome to the MySQL monitor>") != -1
 #   retries: 5
 #   delay: 10
-- name: Wait for webserver to start.
-  local_action:
-    module: wait_for
-    host: "127.0.0.1"
-    port: "3306"
-    delay: 10
-    timeout: 300
-    state: started
+
 
 - name: sleep for specified interval
   command: sleep 60
