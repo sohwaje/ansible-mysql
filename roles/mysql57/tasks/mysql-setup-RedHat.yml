@@ -125,7 +125,7 @@
     login_unix_socket: "{{ mysql_default_sock }}"
     filter: version
     register: result
-    until: "result.content.find("5.7") != -1"
+    until: result.content.find("5.7") != -1
     retries: 5
     timeout: 30
 
