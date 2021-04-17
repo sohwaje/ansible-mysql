@@ -111,13 +111,19 @@
     enabled: yes
   when: ansible_service_mgr == "systemd"
 
-- name: Wait for service to be ready
-  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password
-  register: result
-  until: result.stdout.find("Welcome to the MySQL monitor>") != -1
-  retries: 5
-  delay: 10
-
+# - name: Wait for service to be ready
+#   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password
+#   register: result
+#   until: result.stdout.find("Welcome to the MySQL monitor>") != -1
+#   retries: 5
+#   delay: 10
+- name: Get MySQL version with non-default credentials
+  mysql_info:
+    login_user: "root"
+    login_password: "{{ root_password.stdout }}"
+    config_file: "/etc/my.cnf"
+    login_unix_socket: "{{ mysql_default_sock }}"
+    filter: version
 
 - name: Update Root user Password
   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
