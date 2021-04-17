@@ -7,10 +7,6 @@
   register: result
   until: result is succeeded
 
-- name: Make sure pymysql is present
-  pip3:
-    name: pymysql
-    state: present
 - name: Create group MySQL
   group:
     name: mysql
