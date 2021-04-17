@@ -5,10 +5,10 @@
     - "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
     - "{{ ansible_os_family }}.yml"
 
-- include_tasks: "mysql-setup-{{ ansible_os_family }}.yml"
+
 
 # Configure MySQL.
-- include_tasks: mysql-setup-RedHat.yml
-- include_tasks: download.yml
-- include_tasks: install.yml
+# - include_tasks: "mysql-setup-{{ ansible_os_family }}.yml"
+# - include_tasks: download.yml
+# - include_tasks: install.yml
 - include_tasks: databases.yml
