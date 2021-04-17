@@ -124,10 +124,7 @@
     config_file: "/etc/my.cnf"
     login_unix_socket: "{{ mysql_default_sock }}"
     filter: version
-    register: result
-    until: result.content.find("5.7") != -1
-    retries: 5
-    timeout: 30
+    connect_timeout: 60
 
 - name: Wait for webserver to start.
   local_action:
