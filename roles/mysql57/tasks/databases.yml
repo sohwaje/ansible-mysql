@@ -1,3 +1,7 @@
+- name: Install PyMySQL
+  pip:
+    name: pymysql
+    
 - name: Remove anonymous MySQL users
   mysql_user:
     name: ''
@@ -9,7 +13,7 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
   ignore_errors: yes
-  
+
 - name: Remove MySQL test database
   mysql_db:
     name: test

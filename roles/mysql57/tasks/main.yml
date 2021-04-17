@@ -8,7 +8,7 @@
 
 
 # Configure MySQL.
-# - include_tasks: "mysql-setup-{{ ansible_os_family }}.yml"
+- include_tasks: "mysql-setup-{{ ansible_os_family }}.yml"
 # - include_tasks: download.yml
 # - include_tasks: install.yml
 - include_tasks: databases.yml
