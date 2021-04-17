@@ -7,8 +7,9 @@
     login_password: "{{ mysql_root_password }}"
     config_file: "/etc/my.cnf"
   vars:
-    ansible_python_interpreter: /usr/bin/python2.6
+    ansible_python_interpreter: /usr/bin/python3
   ignore_errors: yes
+  
 - name: Remove MySQL test database
   mysql_db:
     name: test
@@ -17,7 +18,7 @@
     login_password: "{{ mysql_root_password }}"
     config_file: "/etc/my.cnf"
   vars:
-    ansible_python_interpreter: /usr/bin/python2.6
+    ansible_python_interpreter: /usr/bin/python3
   ignore_errors: yes
 
 # - name: Create mysql Clinet user
