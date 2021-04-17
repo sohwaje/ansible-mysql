@@ -124,6 +124,19 @@
     config_file: "/etc/my.cnf"
     login_unix_socket: "{{ mysql_default_sock }}"
     filter: version
+    register: result
+    until: "result.content.find("5.7") != -1"
+    retries: 5
+    timeout: 30
+
+- name: Wait for webserver to start.
+  local_action:
+    module: wait_for
+    host: "127.0.0.11"
+    port: "3306"
+    delay: 10
+    timeout: 300
+    state: started
 
 - name: Update Root user Password
   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
