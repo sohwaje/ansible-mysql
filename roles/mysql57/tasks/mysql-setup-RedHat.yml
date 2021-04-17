@@ -126,6 +126,9 @@
     timeout: 300
     state: started
 
+- name: sleep for specified interval
+  command: sleep 60
+  
 - name: Update Root user Password
   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' identified BY '{{ mysql_root_password }}';"
   vars:
