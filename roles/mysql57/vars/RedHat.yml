@@ -20,6 +20,6 @@ mysql_default_python_packages:
   - mysql-devel
   - libselinux-python3
 
-mysql_users: "sigongweb"
+mysql_users: "mysql"
 services_list:
   - mysql
